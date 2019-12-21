@@ -12,7 +12,7 @@ Features
 - upload a firmware to an Arduino
 - support on Android 3.1 or higher (need USB Host API feature)
 - **does not require ROOT**
-- supports USB-Serial protocols : CDC-ACM, FTDI, Silicon Labs CP210x and WinChipHead CH34X
+- supports USB-Serial protocols : CDC-ACM, FTDI, Silicon Labs CP210x, WinChipHead CH34X and PL2303
 - supports uploading firmware protocols : STK500, STK500V2, Binary blob ESP8266 OTA
 - open-source(Apache License 2.0)
 
