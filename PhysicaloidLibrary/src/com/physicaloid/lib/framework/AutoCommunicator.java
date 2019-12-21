@@ -26,6 +26,7 @@ import com.physicaloid.lib.usb.UsbAccessor;
 import com.physicaloid.lib.usb.driver.uart.UartCdcAcm;
 import com.physicaloid.lib.usb.driver.uart.UartCp210x;
 import com.physicaloid.lib.usb.driver.uart.UartFtdi;
+import com.physicaloid.lib.usb.driver.uart.UartPL2303;
 import com.physicaloid.lib.usb.driver.uart.UartWinCH34x;
 import com.physicaloid.lib.wifi.driver.uart.UartWifi;
 
@@ -90,7 +91,13 @@ public class AutoCommunicator {
                                                 } else if(vid == UsbVidList.CP210X.getVid()) {
                                                         Log.d(TAG, "CP210x");
                                                         sc = new UartCp210x(context);
-                                                } else if((vid == UsbVidList.DCCDUINO.getVid()) || (vid == UsbVidList.WCH.getVid())) {
+
+                                                } else if(vid == UsbVidList.PL2303.getVid()) {
+                                                        Log.d(TAG, "PL2303");
+                                                        sc = new UartPL2303(context);
+
+                                                }
+                                                else if((vid == UsbVidList.DCCDUINO.getVid()) || (vid == UsbVidList.WCH.getVid())) {
                                                          Log.d(TAG, "POSSIBLY WCH");
                                                        // check PID
                                                         if(pid == 0x5523 || pid == 0x7523) {
