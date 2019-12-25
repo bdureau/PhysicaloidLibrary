@@ -94,6 +94,7 @@ public class UsbCdcConnection {
                                                 Log.d(TAG, "PID PASS " + usbdev.getProductId());
                                         }
                                         for(int intfNum = 0; intfNum < usbdev.getInterfaceCount(); intfNum++) {
+                                                Log.d(TAG, "Interface class: " +usbdev.getInterface(intfNum).getInterfaceClass()+ "interface num: "+ intfNum);
                                                 if((isCdcAcm && (usbdev.getInterface(intfNum).getInterfaceClass() == UsbConstants.USB_CLASS_CDC_DATA)) || !isCdcAcm) {
                                                         if(DEBUG_SHOW) {
                                                                 Log.d(TAG, "ACM PASS");
@@ -143,7 +144,9 @@ public class UsbCdcConnection {
                         if(ep == null) {
                                 return null;
                         }
-                        if(ep.getDirection() == usbDir) {
+                        //had to add the type so that it works for PL2303
+                        if(ep.getDirection() == usbDir && ep.getType()==2) {
+
                                 return ep;
                         }
                 }
