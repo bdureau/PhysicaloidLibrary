@@ -141,19 +141,24 @@ public class UartFtdi extends SerialCommunicator {
 
         public UartFtdi(Context context) {
                 super(context);
+                //Log.d(TAG, "INIT UartFtdi");
                 mUsbConnetionManager = new UsbCdcConnection(context);
+                //Log.d(TAG, "INIT after mUsbConnetionManager");
                 mReadThreadStop = true;
                 mUartConfig = new UartConfig();
+                //Log.d(TAG, "INIT after UartConfig");
                 mBuffer = new RingBuffer(RING_BUFFER_SIZE);
+                //Log.d(TAG, "INIT after RingBuffer");
                 isOpened = false;
         }
 
         public boolean open(UsbVidPid ids) {
+
                 if(mUsbConnetionManager.open(ids)) {
                         mConnection = mUsbConnetionManager.getConnection();
                         mEndpointIn = mUsbConnetionManager.getEndpointIn();
                         mEndpointOut = mUsbConnetionManager.getEndpointOut();
-                        //pid = mUsbConnetionManager.getPID();
+
                         if(!init()) {
                                 return false;
                         }
@@ -195,7 +200,7 @@ public class UartFtdi extends SerialCommunicator {
                         return false;
                 }
                 // set the latency timer to a very low number to improve performance.
-                rv = control_out(FTDI_SIO_SET_LATENCY_TIMER, 0, 1);
+                rv = control_out(FTDI_SIO_SET_LATENCY_TIMER, 20, 1); // change from 0 to 20 so that it works with other FTDI driver
                 if(rv < 0) {
                         return false;
                 }
