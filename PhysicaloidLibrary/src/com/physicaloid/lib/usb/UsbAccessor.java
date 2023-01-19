@@ -35,7 +35,7 @@ import com.physicaloid.BuildConfig;
 public enum UsbAccessor {
     INSTANCE;   // enum singleton
 
-    private static final boolean DEBUG_SHOW = true && BuildConfig.DEBUG;
+    private static final boolean DEBUG_SHOW = false; //true;// && BuildConfig.DEBUG;
 
     private static final String TAG = UsbAccessor.class.getSimpleName();
 
@@ -58,8 +58,15 @@ public enum UsbAccessor {
             mManager = (UsbManager) context.getSystemService(context.USB_SERVICE);
         }
 
-        if(mPermissionIntent == null) {
+        /*if(mPermissionIntent == null) {
             mPermissionIntent = PendingIntent.getBroadcast(context, 0, new Intent("USB_PERMISSION"), 0);
+        }*/
+        if(mPermissionIntent == null) {
+            if(android.os.Build.VERSION.SDK_INT >= 31) {
+                mPermissionIntent = PendingIntent.getBroadcast(context, 0, new Intent("USB_PERMISSION"), PendingIntent.FLAG_IMMUTABLE);
+            } else {
+                mPermissionIntent = PendingIntent.getBroadcast(context, 0, new Intent("USB_PERMISSION"), 0);
+            }
         }
     }
 
@@ -140,7 +147,7 @@ public enum UsbAccessor {
 
     /**
      * Gets UsbDeviceConnection by a hierarchy device number
-     * @param devNum hierarchy device number
+     * @param ch hierarchy device number
      * @return UsbDeviceConnection or null
      */
     public UsbDeviceConnection connection(int ch) {
