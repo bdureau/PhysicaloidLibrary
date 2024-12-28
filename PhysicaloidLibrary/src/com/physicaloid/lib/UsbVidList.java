@@ -27,7 +27,8 @@ public enum UsbVidList {
     WCH                             (0x4348),
     CP210X                          (0x10C4),
     PL2303                          (0x067B),
-    MAPLE_MINI                      (0x1EAF);
+    MAPLE_MINI                      (0x1EAF),
+    ESP32S3                         (0x303a);
 
     int vid;
     private UsbVidList(int vid) {
